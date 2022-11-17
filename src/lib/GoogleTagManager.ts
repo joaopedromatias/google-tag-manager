@@ -1,41 +1,45 @@
+import sanitize from './sanitize'
 export default class GoogleTagManager { 
-    gtmId: string
-    loadFromSS: boolean
-    dataLayerClear: boolean
-    initialized = false
+    readonly gtmId: string
+    readonly ssDomain: string
+    public clearDataLayer: boolean
+    public sanitizeDataLayer: boolean
+    private initialized = false
 
     constructor(initGtm: gtmConfig) { 
-        const { gtmId, loadFromSS, dataLayerClear } = initGtm;
+        const { gtmId, ssDomain, clearDataLayer, sanitizeDataLayer } = initGtm;
         this.gtmId = String(gtmId) || '';
-        this.loadFromSS = typeof loadFromSS === "boolean" ? loadFromSS : false;
-        this.dataLayerClear = typeof dataLayerClear === "boolean" ? dataLayerClear : false;
+        this.ssDomain = typeof ssDomain === "string" ? ssDomain : '';
+        this.clearDataLayer = typeof clearDataLayer === "boolean" ? clearDataLayer : false;
+        this.sanitizeDataLayer = typeof sanitizeDataLayer === "boolean" ? sanitizeDataLayer : false;
     }
 
-    initialize() {
-        if (!this.initialized) { 
-            if (this.gtmId) { 
+    initialize(): void {
+        if (!this.initialized) {
+            if (this.gtmId) {
                 const script = document.createElement('script');
-                script.innerHTML = `${this.gtmId} ${this.loadFromSS}`;
+                script.innerHTML = `${this.gtmId} ${this.ssDomain}`;
                 window.document.head.appendChild(script);
                 this.initialized = true;
             } else { 
                 console.warn('No Google Tag Manager ID was assigned');
             }
         } else { 
-            console.warn('Google Tag Manager is already loaded');
+            console.warn('Google Tag Manager was already loaded');
         }
     }
 
-    dataLayerPush(obj: dataLayerObj, clear?: boolean) {
-        window.dataLayer.push(obj);
-        if (this.dataLayerClear || clear) { 
-            this.dataLayerResetPush(obj);
+    dataLayerPush(obj: dataLayerObj, clear?: boolean): void {
+        if (this.sanitizeDataLayer) { 
+            const objKeys = Object.keys(obj); 
+            objKeys.forEach(property => { 
+                if (typeof obj[property] === 'string') return sanitize(obj[property] as string) });
         }
-    }
-
-    dataLayerResetPush(obj: dataLayerObj) { 
-        const objKeys = Object.keys(obj); 
-        objKeys.forEach(property => obj[property] = null);
         window.dataLayer.push(obj);
+        if (clear || this.clearDataLayer) { 
+            const objKeys = Object.keys(obj); 
+            objKeys.forEach(property => obj[property] = null);
+            window.dataLayer.push(obj);
+        }
     }
 }

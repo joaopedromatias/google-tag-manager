@@ -17,9 +17,11 @@
   ],
   "keywords": [
     "google tag manager",
+    "gtm",
     "google analytics",
     "data layer",
-    "analytics"
+    "analytics",
+    "google tag manager server side"
   ],
   "author": "joaopedromatias",
   "license": "ISC",
