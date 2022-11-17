@@ -1,0 +1,37 @@
+{
+  "name": "google-tag-manager",
+  "version": "1.0.0",
+  "description": "This library facilitates the usage of Google Tag Manager. Supports Google Tag Manager Server Side loading.",
+  "main": "./src/index.ts",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joaopedromatias/google-tag-manager.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "google tag manager",
+    "google analytics",
+    "data layer",
+    "analytics"
+  ],
+  "author": "joaopedromatias",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joaopedromatias/google-tag-manager/issues"
+  },
+  "homepage": "https://github.com/joaopedromatias/google-tag-manager#readme",
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@typescript-eslint/eslint-plugin": "^5.43.0",
+    "@typescript-eslint/parser": "^5.43.0",
+    "eslint": "^8.27.0",
+    "jest": "^29.3.1"
+  }
+}
