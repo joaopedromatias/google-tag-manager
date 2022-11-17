@@ -3,21 +3,21 @@ import GoogleTagManager from "./GoogleTagManager";
 describe('GoogleTagManager', () => { 
     it('should start the gtm object with the provided values', () => { 
 
-        const gtmArgs: gtmConfig = { 
+        const gtmArgs: any = { 
             gtmId: '0',
-            dataLayerClear: false,
-            loadFromSS: true
+            sanitizeDataLayer: false,
+            clearDataLayer: false,
+            ssDomain: true
         }
 
         const gtm = new GoogleTagManager(gtmArgs);
 
         const gtmIdConfig = gtm.gtmId;
-        const dataLayerClearConfig = gtm.dataLayerClear;
-        const loadFromSSConfig = gtm.loadFromSS;
+        const clearDataLayerConfig = gtm.clearDataLayer;
+        const ssDomainConfig = gtm.ssDomain;
 
         expect(gtmIdConfig).toBe(gtmArgs.gtmId)
-        expect(dataLayerClearConfig).toBe(gtmArgs.dataLayerClear)
-        expect(loadFromSSConfig).toBe(gtmArgs.loadFromSS)
-        expect(gtm.initialized).toBe(false)
+        expect(clearDataLayerConfig).toBe(gtmArgs.clearDataLayer)
+        expect(ssDomainConfig).toBe(gtmArgs.ssDomain)
     })
 })

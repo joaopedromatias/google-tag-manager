@@ -31,15 +31,26 @@ export default class GoogleTagManager {
 
     dataLayerPush(obj: dataLayerObj, clear?: boolean): void {
         if (this.sanitizeDataLayer) { 
-            const objKeys = Object.keys(obj); 
-            objKeys.forEach(property => { 
-                if (typeof obj[property] === 'string') return sanitize(obj[property] as string) });
+            const initialObj = {...obj};
+            try { 
+                const objKeys = Object.keys(obj); 
+                objKeys.forEach(property => { 
+                    if (typeof obj[property] === 'string') return sanitize(obj[property] as string) });
+            } catch (err) { 
+                console.warn('Could not sanitize string properties')
+                obj = initialObj;
+            }
         }
         window.dataLayer.push(obj);
         if (clear || this.clearDataLayer) { 
-            const objKeys = Object.keys(obj); 
-            objKeys.forEach(property => obj[property] = null);
-            window.dataLayer.push(obj);
+            try { 
+                const objKeys = Object.keys(obj); 
+                objKeys.forEach(property => obj[property] = null);
+                window.dataLayer.push(obj);
+            } catch (err) { 
+                console.warn('Could not reset dataLayer variables')
+            }
+            
         }
     }
 }
