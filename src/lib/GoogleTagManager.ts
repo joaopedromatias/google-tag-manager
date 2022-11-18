@@ -1,6 +1,6 @@
-import sanitizeObj from '../util/sanitizeObj'
-import resetDataLayer from '../util/resetDataLayer'
-import gtmCode from '../util/gtmCode'
+import sanitizeObj from '../util/sanitizeObj.js'
+import resetDataLayer from '../util/resetDataLayer.js'
+import gtmCode from '../util/gtmCode.js'
 
 export default class GoogleTagManager { 
     readonly gtmId: string
@@ -11,7 +11,7 @@ export default class GoogleTagManager {
 
     constructor(initGtm: gtmConfig) { 
         const { gtmId, ssDomain, resetDataLayer, sanitizeDataLayer } = initGtm;
-        this.gtmId = typeof ssDomain === "string" ? gtmId : undefined;
+        this.gtmId = typeof gtmId === "string" ? gtmId : undefined;
         this.ssDomain = typeof ssDomain === "string" ? ssDomain : '';
         this.resetDataLayer = typeof resetDataLayer === "boolean" ? resetDataLayer : false;
         this.sanitizeDataLayer = typeof sanitizeDataLayer === "boolean" ? sanitizeDataLayer : false;

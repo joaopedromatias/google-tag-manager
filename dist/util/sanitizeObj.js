@@ -9,7 +9,7 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-import sanitize from "./sanitize";
+import sanitize from "./sanitize.js";
 export default function (obj) {
     var objInitialValue = __assign({}, obj);
     try {

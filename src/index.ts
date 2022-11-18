@@ -1,3 +1,3 @@
-import GTM from './lib/GoogleTagManager'
+import GTM from './lib/GoogleTagManager.js'
 
 export default GTM

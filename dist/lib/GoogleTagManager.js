@@ -1,11 +1,11 @@
-import sanitizeObj from '../util/sanitizeObj';
-import resetDataLayer from '../util/resetDataLayer';
-import gtmCode from '../util/gtmCode';
+import sanitizeObj from '../util/sanitizeObj.js';
+import resetDataLayer from '../util/resetDataLayer.js';
+import gtmCode from '../util/gtmCode.js';
 var GoogleTagManager = /** @class */ (function () {
     function GoogleTagManager(initGtm) {
         this.initialized = false;
         var gtmId = initGtm.gtmId, ssDomain = initGtm.ssDomain, resetDataLayer = initGtm.resetDataLayer, sanitizeDataLayer = initGtm.sanitizeDataLayer;
-        this.gtmId = typeof ssDomain === "string" ? gtmId : undefined;
+        this.gtmId = typeof gtmId === "string" ? gtmId : undefined;
         this.ssDomain = typeof ssDomain === "string" ? ssDomain : '';
         this.resetDataLayer = typeof resetDataLayer === "boolean" ? resetDataLayer : false;
         this.sanitizeDataLayer = typeof sanitizeDataLayer === "boolean" ? sanitizeDataLayer : false;

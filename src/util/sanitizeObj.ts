@@ -1,4 +1,4 @@
-import sanitize from "./sanitize";
+import sanitize from "./sanitize.js";
 
 export default function (obj: dataLayerObj) { 
     const objInitialValue = {...obj}
