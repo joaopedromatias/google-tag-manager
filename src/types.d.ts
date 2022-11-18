@@ -1,4 +1,4 @@
-interface dataLayerObj extends Object {
+interface dataLayerObj {
     [parameter: string]: string | number | null | boolean | object | Array <string | null | number | object | boolean>
 }
 
@@ -9,6 +9,6 @@ interface Window {
 interface gtmConfig {
     gtmId: string
     ssDomain?: string
-    clearDataLayer?: boolean
+    resetDataLayer?: boolean
     sanitizeDataLayer?: boolean
 }

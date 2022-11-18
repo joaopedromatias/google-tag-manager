@@ -1,16 +1,19 @@
-import sanitize from './sanitize'
+import sanitizeObj from '../util/sanitizeObj'
+import resetDataLayer from '../util/resetDataLayer'
+import gtmCode from '../util/gtmCode'
+
 export default class GoogleTagManager { 
     readonly gtmId: string
     readonly ssDomain: string
-    public clearDataLayer: boolean
-    public sanitizeDataLayer: boolean
+    readonly resetDataLayer: boolean
+    readonly sanitizeDataLayer: boolean
     private initialized = false
 
     constructor(initGtm: gtmConfig) { 
-        const { gtmId, ssDomain, clearDataLayer, sanitizeDataLayer } = initGtm;
-        this.gtmId = String(gtmId) || '';
+        const { gtmId, ssDomain, resetDataLayer, sanitizeDataLayer } = initGtm;
+        this.gtmId = typeof ssDomain === "string" ? gtmId : undefined;
         this.ssDomain = typeof ssDomain === "string" ? ssDomain : '';
-        this.clearDataLayer = typeof clearDataLayer === "boolean" ? clearDataLayer : false;
+        this.resetDataLayer = typeof resetDataLayer === "boolean" ? resetDataLayer : false;
         this.sanitizeDataLayer = typeof sanitizeDataLayer === "boolean" ? sanitizeDataLayer : false;
     }
 
@@ -18,7 +21,11 @@ export default class GoogleTagManager {
         if (!this.initialized) {
             if (this.gtmId) {
                 const script = document.createElement('script');
-                script.innerHTML = `${this.gtmId} ${this.ssDomain}`;
+                let snippetInnerHTML = gtmCode.replace('GTM-ID', this.gtmId) 
+                if (this.ssDomain) { 
+                    snippetInnerHTML = snippetInnerHTML.replace('www.googletagmanager.com', this.ssDomain)
+                }
+                script.innerHTML = snippetInnerHTML
                 window.document.head.appendChild(script);
                 this.initialized = true;
             } else { 
@@ -31,26 +38,12 @@ export default class GoogleTagManager {
 
     dataLayerPush(obj: dataLayerObj, clear?: boolean): void {
         if (this.sanitizeDataLayer) { 
-            const initialObj = {...obj};
-            try { 
-                const objKeys = Object.keys(obj); 
-                objKeys.forEach(property => { 
-                    if (typeof obj[property] === 'string') return sanitize(obj[property] as string) });
-            } catch (err) { 
-                console.warn('Could not sanitize string properties')
-                obj = initialObj;
-            }
+            sanitizeObj(obj);
         }
         window.dataLayer.push(obj);
-        if (clear || this.clearDataLayer) { 
-            try { 
-                const objKeys = Object.keys(obj); 
-                objKeys.forEach(property => obj[property] = null);
-                window.dataLayer.push(obj);
-            } catch (err) { 
-                console.warn('Could not reset dataLayer variables')
-            }
-            
+        if (clear || this.resetDataLayer) { 
+            resetDataLayer(obj);
+            window.dataLayer.push(obj);
         }
     }
 }
