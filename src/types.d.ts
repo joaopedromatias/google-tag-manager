@@ -11,4 +11,5 @@ interface gtmConfig {
     ssDomain?: string
     resetDataLayer?: boolean
     sanitizeDataLayer?: boolean
+    defer?: boolean
 }

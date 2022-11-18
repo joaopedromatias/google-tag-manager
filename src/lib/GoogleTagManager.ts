@@ -7,14 +7,16 @@ export default class GoogleTagManager {
     readonly ssDomain: string
     readonly resetDataLayer: boolean
     readonly sanitizeDataLayer: boolean
+    readonly defer: boolean
     private initialized = false
 
     constructor(initGtm: gtmConfig) { 
-        const { gtmId, ssDomain, resetDataLayer, sanitizeDataLayer } = initGtm;
+        const { gtmId, ssDomain, resetDataLayer, sanitizeDataLayer, defer } = initGtm;
         this.gtmId = typeof gtmId === "string" ? gtmId : undefined;
         this.ssDomain = typeof ssDomain === "string" ? ssDomain : '';
         this.resetDataLayer = typeof resetDataLayer === "boolean" ? resetDataLayer : false;
         this.sanitizeDataLayer = typeof sanitizeDataLayer === "boolean" ? sanitizeDataLayer : false;
+        this.defer = typeof defer === 'boolean' ? defer : false
     }
 
     initialize(): void {
@@ -24,6 +26,9 @@ export default class GoogleTagManager {
                 let snippetInnerHTML = gtmCode.replace('GTM-ID', this.gtmId) 
                 if (this.ssDomain) { 
                     snippetInnerHTML = snippetInnerHTML.replace('www.googletagmanager.com', this.ssDomain)
+                }
+                if (this.defer){ 
+                    snippetInnerHTML = snippetInnerHTML.replace('async', 'defer')
                 }
                 script.innerHTML = snippetInnerHTML
                 window.document.head.appendChild(script);
