@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "test": "jest --coverage --env=jsdom"
+    "test": "jest --coverage --env=jsdom",
+    "lint": "eslint"
   },
   "repository": {
     "type": "git",
