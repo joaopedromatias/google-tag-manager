@@ -9,7 +9,7 @@ interface Window {
 interface gtmConfig {
     gtmId: string
     ssDomain?: string
-    resetDataLayer?: boolean
-    sanitizeDataLayer?: boolean
+    resetDataLayerObjects?: boolean
+    sanitizeDataLayerObjects?: boolean
     defer?: boolean
 }

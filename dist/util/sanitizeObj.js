@@ -11,18 +11,20 @@ var __assign = (this && this.__assign) || function () {
 };
 import sanitize from "./sanitize.js";
 export default function (obj) {
-    var objInitialValue = __assign({}, obj);
-    try {
-        var objKeys = Object.keys(obj);
-        for (var _i = 0, objKeys_1 = objKeys; _i < objKeys_1.length; _i++) {
-            var key = objKeys_1[_i];
-            if (typeof obj[key] === 'string') {
-                obj[key] = sanitize(obj[key]);
+    if (typeof obj === 'object' && !Array.isArray(obj) && obj !== null) {
+        var objInitialValue = __assign({}, obj);
+        try {
+            var objKeys = Object.keys(obj);
+            for (var _i = 0, objKeys_1 = objKeys; _i < objKeys_1.length; _i++) {
+                var key = objKeys_1[_i];
+                if (typeof obj[key] === 'string') {
+                    obj[key] = sanitize(obj[key]);
+                }
             }
         }
-    }
-    catch (err) {
-        console.warn('Could not sanitize string properties of the dataLayer');
-        obj = objInitialValue;
+        catch (err) {
+            console.warn('Could not sanitize string properties of the dataLayer');
+            obj = objInitialValue;
+        }
     }
 }

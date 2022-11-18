@@ -10,17 +10,19 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 export default function (obj) {
-    var newObj = __assign({}, obj);
-    try {
-        var objKeys = Object.keys(newObj);
-        for (var _i = 0, objKeys_1 = objKeys; _i < objKeys_1.length; _i++) {
-            var key = objKeys_1[_i];
-            newObj[key] = null;
+    if (typeof obj === 'object' && !Array.isArray(obj) && obj !== null) {
+        var newObj = __assign({}, obj);
+        try {
+            var objKeys = Object.keys(newObj);
+            for (var _i = 0, objKeys_1 = objKeys; _i < objKeys_1.length; _i++) {
+                var key = objKeys_1[_i];
+                newObj[key] = null;
+            }
+            return newObj;
         }
-        return newObj;
-    }
-    catch (err) {
-        console.warn('Could not reset dataLayer');
-        return null;
+        catch (err) {
+            console.warn('Could not reset dataLayer');
+            return null;
+        }
     }
 }

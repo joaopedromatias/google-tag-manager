@@ -4,11 +4,11 @@ import gtmCode from '../util/gtmCode.js';
 var GoogleTagManager = /** @class */ (function () {
     function GoogleTagManager(initGtm) {
         this.initialized = false;
-        var gtmId = initGtm.gtmId, ssDomain = initGtm.ssDomain, resetDataLayer = initGtm.resetDataLayer, sanitizeDataLayer = initGtm.sanitizeDataLayer, defer = initGtm.defer;
+        var gtmId = initGtm.gtmId, ssDomain = initGtm.ssDomain, resetDataLayerObjects = initGtm.resetDataLayerObjects, sanitizeDataLayerObjects = initGtm.sanitizeDataLayerObjects, defer = initGtm.defer;
         this.gtmId = typeof gtmId === "string" ? gtmId : undefined;
         this.ssDomain = typeof ssDomain === "string" ? ssDomain : '';
-        this.resetDataLayer = typeof resetDataLayer === "boolean" ? resetDataLayer : false;
-        this.sanitizeDataLayer = typeof sanitizeDataLayer === "boolean" ? sanitizeDataLayer : false;
+        this.resetDataLayer = typeof resetDataLayerObjects === "boolean" ? resetDataLayerObjects : false;
+        this.sanitizeDataLayer = typeof sanitizeDataLayerObjects === "boolean" ? sanitizeDataLayerObjects : false;
         this.defer = typeof defer === 'boolean' ? defer : false;
     }
     GoogleTagManager.prototype.initialize = function () {
@@ -17,7 +17,8 @@ var GoogleTagManager = /** @class */ (function () {
                 var script = document.createElement('script');
                 var snippetInnerHTML = gtmCode.replace('GTM-ID', this.gtmId);
                 if (this.ssDomain) {
-                    snippetInnerHTML = snippetInnerHTML.replace('www.googletagmanager.com', this.ssDomain);
+                    var ssDomainTreated = this.ssDomain.replace(/http(|s):\/\/|\/$/g, '');
+                    snippetInnerHTML = snippetInnerHTML.replace('www.googletagmanager.com', ssDomainTreated);
                 }
                 if (this.defer) {
                     snippetInnerHTML = snippetInnerHTML.replace('async', 'defer');
@@ -34,16 +35,18 @@ var GoogleTagManager = /** @class */ (function () {
             console.warn('Google Tag Manager was already loaded');
         }
     };
-    GoogleTagManager.prototype.dataLayerPush = function (obj, clear) {
+    GoogleTagManager.prototype.dataLayerPush = function (obj, reset) {
         if (this.sanitizeDataLayer) {
             sanitizeObj(obj);
         }
         window.dataLayer.push(obj);
-        if (clear || this.resetDataLayer) {
-            var newObj = resetDataLayer(obj);
-            if (newObj) {
-                window.dataLayer.push(newObj);
+        if (typeof reset === 'boolean') {
+            if (reset) {
+                GoogleTagManager.resetedPush(obj);
             }
+        }
+        else if (this.resetDataLayer) {
+            GoogleTagManager.resetedPush(obj);
         }
     };
     GoogleTagManager.prototype.remove = function () {
@@ -59,6 +62,12 @@ var GoogleTagManager = /** @class */ (function () {
         }
         else {
             console.warn('Google Tag Manager script was not initialized');
+        }
+    };
+    GoogleTagManager.resetedPush = function (obj) {
+        var newObj = resetDataLayer(obj);
+        if (newObj) {
+            window.dataLayer.push(newObj);
         }
     };
     return GoogleTagManager;

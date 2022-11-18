@@ -1,8 +1,9 @@
 {
   "name": "google-tag-manager",
-  "version": "1.0.0",
-  "description": "This library facilitates the usage of Google Tag Manager. Supports Google Tag Manager Server Side loading.",
-  "main": "./src/index.ts",
+  "version": "0.0.1",
+  "description": "Facilitates the usage of Google Tag Manager. Supports Google Tag Manager Server Side loading.",
+  "main": "/dist/index.js",
+  "types": "",
   "type": "module",
   "scripts": {
     "build": "tsc",
@@ -13,9 +14,7 @@
     "type": "git",
     "url": "https://github.com/joaopedromatias/google-tag-manager.git"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["/dist"],
   "keywords": [
     "google tag manager",
     "gtm",

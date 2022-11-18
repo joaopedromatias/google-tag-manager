@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: install dependencies
+        run: npm install
+
+      - name: test
+        run: npm run test
+
+      - name: lint
+      run: npm run lint
