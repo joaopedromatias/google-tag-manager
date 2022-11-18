@@ -1,7 +1,7 @@
 export default function (obj: dataLayerObj): dataLayerObj | null { 
-    const newObj = {...obj}
+    const newObj: dataLayerObj = {...obj}
     try { 
-        const objKeys = Object.keys(newObj); 
+        const objKeys: string[] = Object.keys(newObj); 
         for (const key of objKeys) { 
             newObj[key] = null
         }

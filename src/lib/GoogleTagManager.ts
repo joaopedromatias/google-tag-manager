@@ -11,7 +11,7 @@ export default class GoogleTagManager {
     private initialized = false
 
     constructor(initGtm: gtmConfig) { 
-        const { gtmId, ssDomain, resetDataLayer, sanitizeDataLayer, defer } = initGtm;
+        const { gtmId, ssDomain, resetDataLayer, sanitizeDataLayer, defer }: gtmConfig = initGtm;
         this.gtmId = typeof gtmId === "string" ? gtmId : undefined;
         this.ssDomain = typeof ssDomain === "string" ? ssDomain : '';
         this.resetDataLayer = typeof resetDataLayer === "boolean" ? resetDataLayer : false;
@@ -22,8 +22,8 @@ export default class GoogleTagManager {
     initialize(): void {
         if (!this.initialized) {
             if (this.gtmId) {
-                const script = document.createElement('script');
-                let snippetInnerHTML = gtmCode.replace('GTM-ID', this.gtmId) 
+                const script: HTMLScriptElement = document.createElement('script');
+                let snippetInnerHTML: string = gtmCode.replace('GTM-ID', this.gtmId) 
                 if (this.ssDomain) { 
                     snippetInnerHTML = snippetInnerHTML.replace('www.googletagmanager.com', this.ssDomain)
                 }
@@ -47,7 +47,7 @@ export default class GoogleTagManager {
         }
         window.dataLayer.push(obj);
         if (clear || this.resetDataLayer) { 
-            const newObj = resetDataLayer(obj);
+            const newObj: dataLayerObj | null = resetDataLayer(obj);
             if (newObj) { 
                 window.dataLayer.push(newObj);
             } 
@@ -57,7 +57,7 @@ export default class GoogleTagManager {
     remove(): void { 
         if (this.initialized) {
             try { 
-                const gtmSnippet = document.head.querySelector(`script#gtm-snippet`);
+                const gtmSnippet: HTMLScriptElement = document.head.querySelector(`script#gtm-snippet`);
                 document.head.removeChild(gtmSnippet);
                 this.initialized = false;
             } catch (err) { 
