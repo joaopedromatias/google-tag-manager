@@ -7,9 +7,9 @@ describe('resetDataLayer()', () => {
             element: 'cta-bottom'
         }
 
-        resetDataLayer(object);
+        const newObj = resetDataLayer(object) as dataLayerObj;
 
-        expect(object.event).toBe(null)
-        expect(object.element).toBe(null)
+        expect(newObj.event).toBe(null)
+        expect(newObj.element).toBe(null)
     })
 })

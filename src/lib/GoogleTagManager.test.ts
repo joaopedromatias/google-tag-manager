@@ -46,7 +46,7 @@ describe('GoogleTagManager', () => {
 
             gtm.initialize();
 
-            const gtmSnippet = document.head.querySelector('script')
+            const gtmSnippet = document.head.querySelector('script#gtm-snippet')
             
             expect(gtmSnippet).toBeDefined();
         })
@@ -56,7 +56,7 @@ describe('GoogleTagManager', () => {
             
             gtm.initialize();
 
-            const gtmSnippet = document.head.querySelector('script');
+            const gtmSnippet = document.head.querySelector('script#gtm-snippet') as HTMLScriptElement;
 
             const gtmSnippetSrc = (gtmSnippet || {}).src
             
@@ -68,7 +68,7 @@ describe('GoogleTagManager', () => {
 
             gtm.initialize();
             
-            const gtmSnippet = document.head.querySelector('script');
+            const gtmSnippet = document.head.querySelector('script#gtm-snippet');
             
             expect(gtmSnippet).toBe(null);
         })
@@ -94,6 +94,51 @@ describe('GoogleTagManager', () => {
             expect(window.dataLayer[0].event).toBe('click')
             expect(window.dataLayer[0].element).toBe('cta-bottom')
             
+        })
+
+        it('should push the object to dataLayer and then clear if it is passed on the method', () => { 
+            
+            const gtm = new GoogleTagManager({gtmId: 'GTM-0000000'})
+
+            const dataLayerObj = { 
+                event: 'click',
+                element: 'cta-bottom'
+            }
+
+            gtm.dataLayerPush(dataLayerObj, true);
+
+            expect(window.dataLayer[0].event).toBe('click')
+            expect(window.dataLayer[0].element).toBe('cta-bottom')
+
+            expect(window.dataLayer[1].event).toBeNull()
+            expect(window.dataLayer[1].element).toBeNull()
+        })
+    })
+
+    describe('remove()', () => { 
+
+        beforeEach(() => { 
+            window.document.write(`<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Document</title></head><body></body></html>`)
+        })
+
+        afterEach(() => {
+            window.document.write(``)
+        })
+
+        it('should remove the Google Tag Manager Script', () => { 
+            const gtm = new GoogleTagManager({gtmId: 'GTM-0000000'});
+
+            gtm.initialize();
+
+            let gtmSnippet = document.head.querySelector('script#gtm-snippet');
+
+            expect(gtmSnippet).toBeDefined();
+
+            gtm.remove();
+
+            gtmSnippet = document.head.querySelector('script#gtm-snippet');
+
+            expect(gtmSnippet).toBeNull()
         })
     })
 

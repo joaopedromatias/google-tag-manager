@@ -34,7 +34,7 @@ export default class GoogleTagManager {
                 window.document.head.appendChild(script);
                 this.initialized = true;
             } else { 
-                console.warn('No Google Tag Manager ID was assigned');
+                console.error('No Google Tag Manager ID was assigned');
             }
         } else { 
             console.warn('Google Tag Manager was already loaded');
@@ -47,8 +47,24 @@ export default class GoogleTagManager {
         }
         window.dataLayer.push(obj);
         if (clear || this.resetDataLayer) { 
-            resetDataLayer(obj);
-            window.dataLayer.push(obj);
+            const newObj = resetDataLayer(obj);
+            if (newObj) { 
+                window.dataLayer.push(newObj);
+            } 
+        }
+    }
+
+    remove(): void { 
+        if (this.initialized) {
+            try { 
+                const gtmSnippet = document.head.querySelector(`script#gtm-snippet`);
+                document.head.removeChild(gtmSnippet);
+                this.initialized = false;
+            } catch (err) { 
+                console.error('Could not remove Google Tag Manager script');
+            }   
+        } else { 
+            console.warn('Google Tag Manager script was not initialized');
         }
     }
 }
