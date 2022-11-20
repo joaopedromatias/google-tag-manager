@@ -1,4 +1,4 @@
-import GoogleTagManager from "./GoogleTagManager";
+import GoogleTagManager from ".";
 
 declare global { 
     interface dataLayerObj {
