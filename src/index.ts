@@ -3,11 +3,11 @@ import resetDataLayer from './util/resetDataLayer.js'
 import gtmCode from './util/gtmCode.js'
 
 export default class GoogleTagManager { 
-    readonly gtmId: string
-    readonly serverSideDomain: string
-    readonly resetDataLayer: boolean
-    readonly sanitizeDataLayer: boolean
-    readonly defer: boolean
+    private gtmId: string
+    private serverSideDomain: string
+    private resetDataLayer: boolean
+    private sanitizeDataLayer: boolean
+    private defer: boolean
     private initialized = false
 
     constructor(initGtm: gtmConfig) { 
@@ -43,6 +43,7 @@ export default class GoogleTagManager {
     }
 
     dataLayerPush(obj: dataLayerObj, resetPush?: boolean): void {
+        window.dataLayer = window.dataLayer || []
         if (this.sanitizeDataLayer) { 
             sanitizeObj(obj);
         }
@@ -59,8 +60,8 @@ export default class GoogleTagManager {
     remove(): void { 
         if (this.initialized) {
             try { 
-                const gtmSnippet: HTMLScriptElement = document.head.querySelector(`script#gtm-snippet`);
-                document.head.removeChild(gtmSnippet);
+                const gtmSnippet: HTMLScriptElement = window.document.querySelector(`#gtm-snippet`);
+                window.document.querySelector('html').removeChild(gtmSnippet);
                 this.initialized = false;
             } catch (err) { 
                 console.error('Could not remove Google Tag Manager script');

@@ -36,6 +36,7 @@ var GoogleTagManager = /** @class */ (function () {
         }
     };
     GoogleTagManager.prototype.dataLayerPush = function (obj, resetPush) {
+        window.dataLayer = window.dataLayer || [];
         if (this.sanitizeDataLayer) {
             sanitizeObj(obj);
         }
@@ -52,8 +53,8 @@ var GoogleTagManager = /** @class */ (function () {
     GoogleTagManager.prototype.remove = function () {
         if (this.initialized) {
             try {
-                var gtmSnippet = document.head.querySelector("script#gtm-snippet");
-                document.head.removeChild(gtmSnippet);
+                var gtmSnippet = window.document.querySelector("#gtm-snippet");
+                window.document.querySelector('html').removeChild(gtmSnippet);
                 this.initialized = false;
             }
             catch (err) {
