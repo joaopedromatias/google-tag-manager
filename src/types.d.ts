@@ -1,9 +1,9 @@
-interface dataLayerObj {
-    [parameter: string]: unknown
-}
-
 interface Window {
     dataLayer: dataLayerObj[]
+}
+
+interface dataLayerObj {
+    [parameter: string]: unknown
 }
 
 interface gtmConfig {
