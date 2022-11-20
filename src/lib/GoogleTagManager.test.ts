@@ -17,18 +17,18 @@ describe('GoogleTagManager', () => {
             gtmId: 'GTM-0000000',
             sanitizeDataLayer: false,
             resetDataLayer: false,
-            ssDomain: 'data.domain.com.br'
+            serverSideDomain: 'data.domain.com.br'
         }
 
         const gtm = new GoogleTagManager(gtmArgs);
 
         const gtmIdConfig = gtm.gtmId;
         const clearDataLayerConfig = gtm.resetDataLayer;
-        const ssDomainConfig = gtm.ssDomain;
+        const ssDomainConfig = gtm.serverSideDomain;
 
         expect(gtmIdConfig).toBe(gtmArgs.gtmId)
         expect(clearDataLayerConfig).toBe(gtmArgs.resetDataLayer)
-        expect(ssDomainConfig).toBe(gtmArgs.ssDomain)
+        expect(ssDomainConfig).toBe(gtmArgs.serverSideDomain)
     })
 
     describe('initialize()', () => { 
@@ -52,7 +52,7 @@ describe('GoogleTagManager', () => {
         })
 
         it('should initialize the google tag manager with the provided id and with the server side domain (if it is configured)', () => { 
-            const gtm = new GoogleTagManager({gtmId: 'GTM-1234567', ssDomain: 'data.domain.com'});  
+            const gtm = new GoogleTagManager({gtmId: 'GTM-1234567', serverSideDomain: 'data.domain.com'});  
             
             gtm.initialize();
 

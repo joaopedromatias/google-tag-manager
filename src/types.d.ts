@@ -8,7 +8,7 @@ interface Window {
 
 interface gtmConfig {
     gtmId: string
-    ssDomain?: string
+    serverSideDomain?: string
     resetDataLayerObjects?: boolean
     sanitizeDataLayerObjects?: boolean
     defer?: boolean

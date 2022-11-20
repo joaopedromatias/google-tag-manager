@@ -4,16 +4,16 @@ import gtmCode from '../util/gtmCode.js'
 
 export default class GoogleTagManager { 
     readonly gtmId: string
-    readonly ssDomain: string
+    readonly serverSideDomain: string
     readonly resetDataLayer: boolean
     readonly sanitizeDataLayer: boolean
     readonly defer: boolean
     private initialized = false
 
     constructor(initGtm: gtmConfig) { 
-        const { gtmId, ssDomain, resetDataLayerObjects, sanitizeDataLayerObjects, defer }: gtmConfig = initGtm;
+        const { gtmId, serverSideDomain, resetDataLayerObjects, sanitizeDataLayerObjects, defer }: gtmConfig = initGtm;
         this.gtmId = typeof gtmId === "string" ? gtmId : undefined;
-        this.ssDomain = typeof ssDomain === "string" ? ssDomain : '';
+        this.serverSideDomain = typeof serverSideDomain === "string" ? serverSideDomain : '';
         this.resetDataLayer = typeof resetDataLayerObjects === "boolean" ? resetDataLayerObjects : false;
         this.sanitizeDataLayer = typeof sanitizeDataLayerObjects === "boolean" ? sanitizeDataLayerObjects : false;
         this.defer = typeof defer === 'boolean' ? defer : false
@@ -24,8 +24,8 @@ export default class GoogleTagManager {
             if (this.gtmId) {
                 const script: HTMLScriptElement = document.createElement('script');
                 let snippetInnerHTML: string = gtmCode.replace('GTM-ID', this.gtmId) 
-                if (this.ssDomain) { 
-                    const ssDomainTreated = this.ssDomain.replace(/http(|s):\/\/|\/$/g, '');
+                if (this.serverSideDomain) { 
+                    const ssDomainTreated = this.serverSideDomain.replace(/http(|s):\/\/|\/$/g, '');
                     snippetInnerHTML = snippetInnerHTML.replace('www.googletagmanager.com', ssDomainTreated)
                 }
                 if (this.defer){ 
@@ -42,13 +42,13 @@ export default class GoogleTagManager {
         }
     }
 
-    dataLayerPush(obj: dataLayerObj, reset?: boolean): void {
+    dataLayerPush(obj: dataLayerObj, resetPush?: boolean): void {
         if (this.sanitizeDataLayer) { 
             sanitizeObj(obj);
         }
         window.dataLayer.push(obj);
-        if (typeof reset === 'boolean') { 
-            if (reset) { 
+        if (typeof resetPush === 'boolean') { 
+            if (resetPush) { 
                 GoogleTagManager.resetPush(obj);
             }
         } else if (this.resetDataLayer) {
