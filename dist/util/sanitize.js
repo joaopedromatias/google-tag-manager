@@ -8,3 +8,4 @@ export default (function (text) {
         .replace(allLineBreaks, "-")
         .toLowerCase();
 });
+//# sourceMappingURL=sanitize.js.map

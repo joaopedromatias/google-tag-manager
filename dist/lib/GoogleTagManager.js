@@ -5,8 +5,8 @@ var GoogleTagManager = /** @class */ (function () {
     function GoogleTagManager(initGtm) {
         this.initialized = false;
         var gtmId = initGtm.gtmId, serverSideDomain = initGtm.serverSideDomain, resetDataLayerObjects = initGtm.resetDataLayerObjects, sanitizeDataLayerObjects = initGtm.sanitizeDataLayerObjects, defer = initGtm.defer;
-        this.gtmId = typeof gtmId === "string" ? gtmId : undefined;
-        this.serverSideDomain = typeof serverSideDomain === "string" ? serverSideDomain : '';
+        this.gtmId = typeof gtmId === "string" ? gtmId.trim() : undefined;
+        this.serverSideDomain = typeof serverSideDomain === "string" ? serverSideDomain.trim() : '';
         this.resetDataLayer = typeof resetDataLayerObjects === "boolean" ? resetDataLayerObjects : false;
         this.sanitizeDataLayer = typeof sanitizeDataLayerObjects === "boolean" ? sanitizeDataLayerObjects : false;
         this.defer = typeof defer === 'boolean' ? defer : false;
@@ -73,3 +73,4 @@ var GoogleTagManager = /** @class */ (function () {
     return GoogleTagManager;
 }());
 export default GoogleTagManager;
+//# sourceMappingURL=GoogleTagManager.js.map

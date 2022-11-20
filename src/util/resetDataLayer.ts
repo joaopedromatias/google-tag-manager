@@ -1,4 +1,4 @@
-import isObject from "./isObject";
+import isObject from "./isObject.js";
 
 export default function (obj: dataLayerObj): dataLayerObj | null { 
     if (isObject(obj) && obj !== undefined) { 

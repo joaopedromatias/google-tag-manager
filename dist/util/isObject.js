@@ -4,3 +4,4 @@ export default function isObject(checkVariable) {
     }
     return false;
 }
+//# sourceMappingURL=isObject.js.map

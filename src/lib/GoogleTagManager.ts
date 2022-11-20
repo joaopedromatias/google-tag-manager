@@ -12,8 +12,8 @@ export default class GoogleTagManager {
 
     constructor(initGtm: gtmConfig) { 
         const { gtmId, serverSideDomain, resetDataLayerObjects, sanitizeDataLayerObjects, defer }: gtmConfig = initGtm;
-        this.gtmId = typeof gtmId === "string" ? gtmId : undefined;
-        this.serverSideDomain = typeof serverSideDomain === "string" ? serverSideDomain : '';
+        this.gtmId = typeof gtmId === "string" ? gtmId.trim() : undefined;
+        this.serverSideDomain = typeof serverSideDomain === "string" ? serverSideDomain.trim() : '';
         this.resetDataLayer = typeof resetDataLayerObjects === "boolean" ? resetDataLayerObjects : false;
         this.sanitizeDataLayer = typeof sanitizeDataLayerObjects === "boolean" ? sanitizeDataLayerObjects : false;
         this.defer = typeof defer === 'boolean' ? defer : false

@@ -9,7 +9,7 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-import isObject from "./isObject";
+import isObject from "./isObject.js";
 export default function (obj) {
     if (isObject(obj) && obj !== undefined) {
         var newObj = __assign({}, obj);
@@ -28,3 +28,4 @@ export default function (obj) {
     }
     return null;
 }
+//# sourceMappingURL=resetDataLayer.js.map
