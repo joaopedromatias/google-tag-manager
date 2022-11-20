@@ -37,7 +37,7 @@ const dataLayerObject = {
     text: 'buy-now'
 }
 
-gtm.dataLayerPush(dataLayerObject) // Push the object to the dataLayer
+gtm.dataLayerPush(dataLayerObject) // Push the object to the dataLayer. The object can have any tyoe.
 
 // using the optional second parameter
 gtm.dataLayerPush(dataLayerObject, true) // push the object to the dataLayer and then push another object reseting the properties first sent. It has priority over the initial configuration 'resetDataLayerObjects'.
@@ -50,7 +50,7 @@ if (userOptedOut) {
 | Method | Parameters | Description | 
 | ------ | ---------- | ----------- | 
 | initialize | - | Load the Google Tag Manager Client Side container | 
-| dataLayerPush | (object, resetPush) | Pushes the object to the dataLayer | 
+| dataLayerPush | object, resetPush | Pushes the object to the dataLayer. If the second parameter is passed, it overwrites the initial `resetDataLayerObjects` configuration for this push | 
 | remove | - | Removes the container | 
 
 ## Colaborating 
