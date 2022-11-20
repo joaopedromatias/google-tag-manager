@@ -1,5 +1,7 @@
+import isObject from "./isObject";
+
 export default function (obj: dataLayerObj): dataLayerObj | null { 
-    if (typeof obj === 'object' && !Array.isArray(obj) && obj !== null) { 
+    if (isObject(obj)) { 
         const newObj: dataLayerObj = {...obj}
         try { 
             const objKeys: string[] = Object.keys(newObj); 

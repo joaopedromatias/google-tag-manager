@@ -1,7 +1,8 @@
 import sanitize from "./sanitize.js";
+import isObject from "./isObject.js";
 
 export default function (obj: dataLayerObj) { 
-    if (typeof obj === 'object' && !Array.isArray(obj) && obj !== null) { 
+    if (isObject(obj)) { 
         const objInitialValue: dataLayerObj = {...obj}
         try { 
             const objKeys: string[] = Object.keys(obj); 
