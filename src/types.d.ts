@@ -1,5 +1,5 @@
 interface dataLayerObj {
-    [parameter: string]: string | number | null | boolean | object | Array <string | null | number | object | boolean>
+    [parameter: string]: unknown
 }
 
 interface Window {

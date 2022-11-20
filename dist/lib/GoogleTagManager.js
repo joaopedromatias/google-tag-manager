@@ -37,16 +37,16 @@ var GoogleTagManager = /** @class */ (function () {
     };
     GoogleTagManager.prototype.dataLayerPush = function (obj, reset) {
         if (this.sanitizeDataLayer) {
-            sanitizeObj(obj);
+            sanitizeObj(obj); // colocar para nested properties
         }
         window.dataLayer.push(obj);
         if (typeof reset === 'boolean') {
             if (reset) {
-                GoogleTagManager.resetedPush(obj);
+                GoogleTagManager.resetPush(obj);
             }
         }
         else if (this.resetDataLayer) {
-            GoogleTagManager.resetedPush(obj);
+            GoogleTagManager.resetPush(obj);
         }
     };
     GoogleTagManager.prototype.remove = function () {
@@ -61,10 +61,10 @@ var GoogleTagManager = /** @class */ (function () {
             }
         }
         else {
-            console.warn('Google Tag Manager script was not initialized');
+            console.warn('Google Tag Manager script is not initialized');
         }
     };
-    GoogleTagManager.resetedPush = function (obj) {
+    GoogleTagManager.resetPush = function (obj) {
         var newObj = resetDataLayer(obj);
         if (newObj) {
             window.dataLayer.push(newObj);

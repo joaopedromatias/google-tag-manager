@@ -12,4 +12,5 @@ export default function (obj: dataLayerObj): dataLayerObj | null {
             return null
         }
     }
+    return null
 }

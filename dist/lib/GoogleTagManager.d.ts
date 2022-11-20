@@ -9,5 +9,5 @@ export default class GoogleTagManager {
     initialize(): void;
     dataLayerPush(obj: dataLayerObj, reset?: boolean): void;
     remove(): void;
-    private static resetedPush;
+    private static resetPush;
 }

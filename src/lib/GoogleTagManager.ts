@@ -49,10 +49,10 @@ export default class GoogleTagManager {
         window.dataLayer.push(obj);
         if (typeof reset === 'boolean') { 
             if (reset) { 
-                GoogleTagManager.resetedPush(obj);
+                GoogleTagManager.resetPush(obj);
             }
         } else if (this.resetDataLayer) {
-            GoogleTagManager.resetedPush(obj);
+            GoogleTagManager.resetPush(obj);
         }
     }
 
@@ -66,11 +66,11 @@ export default class GoogleTagManager {
                 console.error('Could not remove Google Tag Manager script');
             }   
         } else { 
-            console.warn('Google Tag Manager script was not initialized');
+            console.warn('Google Tag Manager script is not initialized');
         }
     }
 
-    private static resetedPush(obj: dataLayerObj) { 
+    private static resetPush(obj: dataLayerObj) { 
         const newObj: dataLayerObj | null = resetDataLayer(obj);
         if (newObj) {
             window.dataLayer.push(newObj);

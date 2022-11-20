@@ -25,4 +25,5 @@ export default function (obj) {
             return null;
         }
     }
+    return null;
 }
