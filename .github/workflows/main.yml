@@ -8,7 +8,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    steps:
+    steps: CI
       - uses: actions/checkout@v3
 
       - name: install dependencies
