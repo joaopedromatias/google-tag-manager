@@ -8,13 +8,16 @@
   "scripts": {
     "build": "tsc",
     "test": "jest --coverage --env=jsdom",
-    "lint": "eslint"
+    "lint": "eslint",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/joaopedromatias/google-tag-manager.git"
   },
-  "files": ["/dist"],
+  "files": [
+    "/dist"
+  ],
   "keywords": [
     "google tag manager",
     "gtm",
@@ -37,6 +40,7 @@
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@typescript-eslint/parser": "^5.43.0",
     "eslint": "^8.27.0",
+    "husky": "^8.0.2",
     "jest": "^29.3.1",
     "jest-environment-jsdom": "^29.3.1"
   }

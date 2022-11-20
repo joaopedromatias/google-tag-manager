@@ -9,8 +9,9 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+import isObject from "./isObject";
 export default function (obj) {
-    if (typeof obj === 'object' && !Array.isArray(obj) && obj !== null) {
+    if (isObject(obj) && obj !== undefined) {
         var newObj = __assign({}, obj);
         try {
             var objKeys = Object.keys(newObj);

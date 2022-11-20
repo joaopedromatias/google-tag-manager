@@ -4,9 +4,9 @@ import gtmCode from '../util/gtmCode.js';
 var GoogleTagManager = /** @class */ (function () {
     function GoogleTagManager(initGtm) {
         this.initialized = false;
-        var gtmId = initGtm.gtmId, ssDomain = initGtm.ssDomain, resetDataLayerObjects = initGtm.resetDataLayerObjects, sanitizeDataLayerObjects = initGtm.sanitizeDataLayerObjects, defer = initGtm.defer;
+        var gtmId = initGtm.gtmId, serverSideDomain = initGtm.serverSideDomain, resetDataLayerObjects = initGtm.resetDataLayerObjects, sanitizeDataLayerObjects = initGtm.sanitizeDataLayerObjects, defer = initGtm.defer;
         this.gtmId = typeof gtmId === "string" ? gtmId : undefined;
-        this.ssDomain = typeof ssDomain === "string" ? ssDomain : '';
+        this.serverSideDomain = typeof serverSideDomain === "string" ? serverSideDomain : '';
         this.resetDataLayer = typeof resetDataLayerObjects === "boolean" ? resetDataLayerObjects : false;
         this.sanitizeDataLayer = typeof sanitizeDataLayerObjects === "boolean" ? sanitizeDataLayerObjects : false;
         this.defer = typeof defer === 'boolean' ? defer : false;
@@ -16,8 +16,8 @@ var GoogleTagManager = /** @class */ (function () {
             if (this.gtmId) {
                 var script = document.createElement('script');
                 var snippetInnerHTML = gtmCode.replace('GTM-ID', this.gtmId);
-                if (this.ssDomain) {
-                    var ssDomainTreated = this.ssDomain.replace(/http(|s):\/\/|\/$/g, '');
+                if (this.serverSideDomain) {
+                    var ssDomainTreated = this.serverSideDomain.replace(/http(|s):\/\/|\/$/g, '');
                     snippetInnerHTML = snippetInnerHTML.replace('www.googletagmanager.com', ssDomainTreated);
                 }
                 if (this.defer) {
@@ -35,13 +35,13 @@ var GoogleTagManager = /** @class */ (function () {
             console.warn('Google Tag Manager was already loaded');
         }
     };
-    GoogleTagManager.prototype.dataLayerPush = function (obj, reset) {
+    GoogleTagManager.prototype.dataLayerPush = function (obj, resetPush) {
         if (this.sanitizeDataLayer) {
-            sanitizeObj(obj); // colocar para nested properties
+            sanitizeObj(obj);
         }
         window.dataLayer.push(obj);
-        if (typeof reset === 'boolean') {
-            if (reset) {
+        if (typeof resetPush === 'boolean') {
+            if (resetPush) {
                 GoogleTagManager.resetPush(obj);
             }
         }

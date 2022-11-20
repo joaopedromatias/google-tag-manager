@@ -10,8 +10,9 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 import sanitize from "./sanitize.js";
+import isObject from "./isObject.js";
 export default function (obj) {
-    if (typeof obj === 'object' && !Array.isArray(obj) && obj !== null) {
+    if (isObject(obj) && obj !== undefined) {
         var objInitialValue = __assign({}, obj);
         try {
             var objKeys = Object.keys(obj);
