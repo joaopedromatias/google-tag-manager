@@ -82,16 +82,27 @@ describe('GoogleTagManager', () => {
 
             const dataLayerObj = { 
                 event: 'click',
-                element: 'cta-bottom'
+                element: 'cta-bottom',
+                ecommerce: { 
+                    add: { 
+                        infoHere: 'the-info'
+                    }
+                }
             }
 
             gtm.dataLayerPush(dataLayerObj, true);
 
             expect(window.dataLayer[0].event).toBe('click')
             expect(window.dataLayer[0].element).toBe('cta-bottom')
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            expect(window.dataLayer[0].ecommerce.add.infoHere).toBe('the-info');
 
             expect(window.dataLayer[1].event).toBeNull()
             expect(window.dataLayer[1].element).toBeNull()
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            expect(window.dataLayer[1].ecommerce.add.infoHere).toBeNull();
         })
     })
 

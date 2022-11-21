@@ -1,5 +1,5 @@
 import sanitizeObj from './util/sanitizeObj.js';
-import resetDataLayer from './util/resetDataLayer.js';
+import resetDataLayerObj from './util/resetDataLayerObj.js';
 import gtmCode from './util/gtmCode.js';
 var GoogleTagManager = /** @class */ (function () {
     function GoogleTagManager(initGtm) {
@@ -42,12 +42,14 @@ var GoogleTagManager = /** @class */ (function () {
         }
         window.dataLayer.push(obj);
         if (typeof resetPush === 'boolean') {
+            var newObj = JSON.parse(JSON.stringify(obj));
             if (resetPush) {
-                GoogleTagManager.resetPush(obj);
+                GoogleTagManager.resetPush(newObj);
             }
         }
         else if (this.resetDataLayer) {
-            GoogleTagManager.resetPush(obj);
+            var newObj = JSON.parse(JSON.stringify(obj));
+            GoogleTagManager.resetPush(newObj);
         }
     };
     GoogleTagManager.prototype.remove = function () {
@@ -66,9 +68,9 @@ var GoogleTagManager = /** @class */ (function () {
         }
     };
     GoogleTagManager.resetPush = function (obj) {
-        var newObj = resetDataLayer(obj);
-        if (newObj) {
-            window.dataLayer.push(newObj);
+        var proceed = resetDataLayerObj(obj);
+        if (proceed) {
+            window.dataLayer.push(obj);
         }
     };
     return GoogleTagManager;

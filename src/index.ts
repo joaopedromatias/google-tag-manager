@@ -1,5 +1,5 @@
 import sanitizeObj from './util/sanitizeObj.js'
-import resetDataLayer from './util/resetDataLayer.js'
+import resetDataLayerObj from './util/resetDataLayerObj.js'
 import gtmCode from './util/gtmCode.js'
 
 export default class GoogleTagManager { 
@@ -49,11 +49,13 @@ export default class GoogleTagManager {
         }
         window.dataLayer.push(obj);
         if (typeof resetPush === 'boolean') { 
+            const newObj = JSON.parse(JSON.stringify(obj));
             if (resetPush) { 
-                GoogleTagManager.resetPush(obj);
+                GoogleTagManager.resetPush(newObj);
             }
         } else if (this.resetDataLayer) {
-            GoogleTagManager.resetPush(obj);
+            const newObj = JSON.parse(JSON.stringify(obj));
+            GoogleTagManager.resetPush(newObj);
         }
     }
 
@@ -72,9 +74,9 @@ export default class GoogleTagManager {
     }
 
     private static resetPush(obj: dataLayerObj) { 
-        const newObj: dataLayerObj | null = resetDataLayer(obj);
-        if (newObj) {
-            window.dataLayer.push(newObj);
+        const proceed = resetDataLayerObj(obj);
+        if (proceed) {
+            window.dataLayer.push(obj);
         }
     }
 }

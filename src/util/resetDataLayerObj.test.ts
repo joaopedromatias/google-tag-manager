@@ -1,4 +1,4 @@
-import resetDataLayer from './resetDataLayer'
+import resetDataLayerObj from './resetDataLayerObj'
 
 describe('resetDataLayer()', () => { 
     it('should reset the dataLayer object', () => { 
@@ -15,11 +15,11 @@ describe('resetDataLayer()', () => {
             }
         }
 
-        const newObj = resetDataLayer(object);
+        resetDataLayerObj(object);
 
-        expect(newObj.event).toBe(null)
-        expect(newObj.element).toBe(null)
-        expect(newObj.ecommerce.add.actionField.test).toBe(null)
-        expect(newObj.ecommerce.add.actionField.list).toBe(null)
+        expect(object.event).toBe(null)
+        expect(object.element).toBe(null)
+        expect(object.ecommerce.add.actionField.test).toBe(null)
+        expect(object.ecommerce.add.actionField.list).toBe(null)
     })
 })

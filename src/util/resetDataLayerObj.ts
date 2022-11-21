@@ -10,16 +10,14 @@ function resetObj (obj: dataLayerObj) {
     })
 }
 
-export default function exec (obj: dataLayerObj): dataLayerObj | null { 
+export default function exec (obj: dataLayerObj): boolean { 
     if (isObject(obj)) { 
-        const newObj: dataLayerObj = {...obj}
         try { 
-            resetObj(newObj);
-            return newObj
+            resetObj(obj);
+            return true
         } catch (err) { 
             console.warn('Could not reset dataLayer')
-            return null
+            return false
         }
     }
-    return null
 }
