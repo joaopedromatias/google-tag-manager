@@ -1,36 +1,16 @@
 import GoogleTagManager from ".";
 
 declare global { 
-    interface dataLayerObj {
-        [parameter: string]: string | number | null | boolean | object | Array <string | null | number | object | boolean>
-    }
-
-    interface Window { 
+    interface Window {
         dataLayer: dataLayerObj[]
     }
 }
 
+interface dataLayerObj {
+    [parameter: string]: unknown
+}
+
 describe('GoogleTagManager', () => { 
-    it('should start the gtm object with the provided values', () => { 
-
-        const gtmArgs = { 
-            gtmId: 'GTM-0000000',
-            sanitizeDataLayer: false,
-            resetDataLayer: false,
-            serverSideDomain: 'data.domain.com.br'
-        }
-
-        const gtm = new GoogleTagManager(gtmArgs);
-
-        const gtmIdConfig = gtm.gtmId;
-        const clearDataLayerConfig = gtm.resetDataLayer;
-        const ssDomainConfig = gtm.serverSideDomain;
-
-        expect(gtmIdConfig).toBe(gtmArgs.gtmId)
-        expect(clearDataLayerConfig).toBe(gtmArgs.resetDataLayer)
-        expect(ssDomainConfig).toBe(gtmArgs.serverSideDomain)
-    })
-
     describe('initialize()', () => { 
 
         beforeEach(() => { 
@@ -64,7 +44,7 @@ describe('GoogleTagManager', () => {
         })
     
         it('should not initialize the google tag manager container if a gtmId is not provided', () => { 
-            const gtm = new GoogleTagManager({});  
+            const gtm = new GoogleTagManager({gtmId: ''});
 
             gtm.initialize();
             
@@ -117,25 +97,30 @@ describe('GoogleTagManager', () => {
 
     describe('remove()', () => { 
 
-        beforeEach(() => { 
-            window.document.write(`<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Document</title></head><body></body></html>`)
-        })
-
-        afterEach(() => {
-            window.document.write(``)
-        })
+        beforeAll(() => {
+            jest.spyOn(GoogleTagManager.prototype, 'remove').mockImplementation(() => {
+                const gtmSnippet = document.head.querySelector('#gtm-snippet')
+                if (gtmSnippet) { 
+                    document.head.removeChild(gtmSnippet);
+                }
+            });
+        });
+        
+        afterAll(() => {
+            jest.restoreAllMocks();
+        });
 
         it('should remove the Google Tag Manager Script', () => { 
-            const gtm = new GoogleTagManager({gtmId: 'GTM-0000000'});
+            const gtm = new GoogleTagManager({gtmId: 'GTM-M4DP6XM'});
 
             gtm.initialize();
 
             let gtmSnippet = document.head.querySelector('script#gtm-snippet');
 
             expect(gtmSnippet).toBeDefined();
-
+            
             gtm.remove();
-
+            
             gtmSnippet = document.head.querySelector('script#gtm-snippet');
 
             expect(gtmSnippet).toBeNull()
