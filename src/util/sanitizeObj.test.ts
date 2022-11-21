@@ -6,7 +6,10 @@ describe('sanitizeObj()', () => {
             name: 'João Pedro',
             age: 22,
             city: 'São Paulo',
-            dev: true
+            dev: true,
+            contact: { 
+                email: 'EMAIL@HERE.COM'
+            }
         }
 
         sanitizeObj(obj);
@@ -15,5 +18,6 @@ describe('sanitizeObj()', () => {
         expect(obj.age).toBe(22)
         expect(obj.city).toBe('sao-paulo')
         expect(obj.dev).toBe(true)
+        expect(obj.contact.email).toBe('email@here.com')
     })
 })
