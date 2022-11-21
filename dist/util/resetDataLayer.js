@@ -11,7 +11,7 @@ var __assign = (this && this.__assign) || function () {
 };
 import isObject from "./isObject.js";
 export default function (obj) {
-    if (isObject(obj) && obj !== undefined) {
+    if (isObject(obj)) {
         var newObj = __assign({}, obj);
         try {
             var objKeys = Object.keys(newObj);

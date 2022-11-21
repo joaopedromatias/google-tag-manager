@@ -1,1 +1,1 @@
-export default function (obj: dataLayerObj): void;
+export default function exec(obj: dataLayerObj): void;
