@@ -6,6 +6,7 @@ export default (function (text) {
         .replace(/[\u0300-\u036f]/g, "")
         .replace(allSpaces, "-")
         .replace(allLineBreaks, "-")
-        .toLowerCase();
+        .toLowerCase()
+        .trim();
 });
 //# sourceMappingURL=sanitize.js.map

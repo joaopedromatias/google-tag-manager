@@ -6,5 +6,6 @@ export default (text: string): string => {
     .replace(/[\u0300-\u036f]/g, "")
     .replace(allSpaces, "-")
     .replace(allLineBreaks, "-")
-    .toLowerCase();
+    .toLowerCase()
+    .trim();
 }
