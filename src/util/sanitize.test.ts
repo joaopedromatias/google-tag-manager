@@ -2,7 +2,7 @@ import sanitize from "./sanitize";
 
 describe('sanitize()', () => { 
     it('should return a sanitized string', () => { 
-        const string = 'tEsTiNg \n gô'
+        const string = '     tEsTiNg \n gô    '
 
         const result = sanitize(string);
         

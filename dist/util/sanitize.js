@@ -4,9 +4,9 @@ export default (function (text) {
     return text
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
+        .trim()
         .replace(allSpaces, "-")
         .replace(allLineBreaks, "-")
-        .toLowerCase()
-        .trim();
+        .toLowerCase();
 });
 //# sourceMappingURL=sanitize.js.map
