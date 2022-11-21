@@ -1,6 +1,6 @@
 {
   "name": "gtm-module",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Facilitates the usage of Google Tag Manager. Supports Google Tag Manager Server Side loading.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -29,7 +29,7 @@
     "gtm server side"
   ],
   "author": "joaopedromatias",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/joaopedromatias/gtm-module/issues"
   },
