@@ -37,7 +37,7 @@ const dataLayerObject = {
     text: 'buy-now'
 }
 
-gtm.dataLayerPush(dataLayerObject) // Push the object to the dataLayer. The object can have any tyoe.
+gtm.dataLayerPush(dataLayerObject) // Push the object to the dataLayer.
 
 // using the optional second parameter
 gtm.dataLayerPush(dataLayerObject, true) // push the object to the dataLayer and then push another object reseting the properties first sent. It has priority over the initial configuration 'resetDataLayerObjects'.
