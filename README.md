@@ -1,4 +1,4 @@
-# `google-tag-manager`
+# `gtm-module`
 
 Facilitates the usage of Google Tag Manager. Supports Google Tag Manager Server Side loading.
 
