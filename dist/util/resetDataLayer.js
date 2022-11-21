@@ -10,15 +10,21 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 import isObject from "./isObject.js";
-export default function (obj) {
+function resetObj(obj) {
+    Object.keys(obj).forEach(function (key) {
+        if (isObject(obj[key])) {
+            resetObj(obj[key]);
+        }
+        else {
+            obj[key] = null;
+        }
+    });
+}
+export default function exec(obj) {
     if (isObject(obj)) {
         var newObj = __assign({}, obj);
         try {
-            var objKeys = Object.keys(newObj);
-            for (var _i = 0, objKeys_1 = objKeys; _i < objKeys_1.length; _i++) {
-                var key = objKeys_1[_i];
-                newObj[key] = null;
-            }
+            resetObj(newObj);
             return newObj;
         }
         catch (err) {

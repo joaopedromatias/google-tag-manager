@@ -1,13 +1,20 @@
 import isObject from "./isObject.js";
 
-export default function (obj: dataLayerObj): dataLayerObj | null { 
+function resetObj (obj: dataLayerObj) {
+    Object.keys(obj).forEach(key => { 
+        if (isObject(obj[key])) { 
+            resetObj(obj[key] as dataLayerObj)
+        } else { 
+            obj[key] = null;
+        }
+    })
+}
+
+export default function exec (obj: dataLayerObj): dataLayerObj | null { 
     if (isObject(obj)) { 
         const newObj: dataLayerObj = {...obj}
         try { 
-            const objKeys: string[] = Object.keys(newObj); 
-            for (const key of objKeys) { 
-                newObj[key] = null
-            }
+            resetObj(newObj);
             return newObj
         } catch (err) { 
             console.warn('Could not reset dataLayer')
