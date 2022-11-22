@@ -1,6 +1,7 @@
-import resetDataLayerObj from './resetDataLayerObj'
+import * as file from '../util/resetDataLayerObj.js'
 
-describe('resetDataLayer()', () => { 
+describe('resetDataLayer()', () => {
+
     it('should reset the dataLayer object', () => { 
         const object = {
             event: 'click',
@@ -15,11 +16,12 @@ describe('resetDataLayer()', () => {
             }
         }
 
-        resetDataLayerObj(object);
+        const res = file.default(object);
 
         expect(object.event).toBe(null)
         expect(object.element).toBe(null)
         expect(object.ecommerce.add.actionField.test).toBe(null)
         expect(object.ecommerce.add.actionField.list).toBe(null)
-    })
+        expect(res).toBe(true)
+    })  
 })

@@ -52,21 +52,22 @@ var GoogleTagManager = /** @class */ (function () {
         }
         window.dataLayer.push(obj);
         if (typeof resetPush === 'boolean') {
-            var newObj = JSON.parse(JSON.stringify(obj));
             if (resetPush) {
-                GoogleTagManager.resetPush(newObj);
+                var newObjMethodConfig = JSON.parse(JSON.stringify(obj));
+                GoogleTagManager.resetPush(newObjMethodConfig);
             }
         }
         else if (this.resetDataLayer) {
-            var newObj = JSON.parse(JSON.stringify(obj));
-            GoogleTagManager.resetPush(newObj);
+            var newObjInstanceConfig = JSON.parse(JSON.stringify(obj));
+            GoogleTagManager.resetPush(newObjInstanceConfig);
         }
     };
     GoogleTagManager.prototype.remove = function () {
         if (this.initialized) {
             try {
                 var gtmSnippet = window.document.querySelector("#gtm-snippet");
-                window.document.querySelector('html').removeChild(gtmSnippet);
+                var parentElement = gtmSnippet.parentNode;
+                parentElement.removeChild(gtmSnippet);
                 this.initialized = false;
             }
             catch (err) {

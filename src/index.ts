@@ -61,13 +61,13 @@ export default class GoogleTagManager {
         }
         window.dataLayer.push(obj);
         if (typeof resetPush === 'boolean') { 
-            const newObj = JSON.parse(JSON.stringify(obj));
             if (resetPush) { 
-                GoogleTagManager.resetPush(newObj);
+                const newObjMethodConfig = JSON.parse(JSON.stringify(obj));
+                GoogleTagManager.resetPush(newObjMethodConfig);
             }
         } else if (this.resetDataLayer) {
-            const newObj = JSON.parse(JSON.stringify(obj));
-            GoogleTagManager.resetPush(newObj);
+            const newObjInstanceConfig = JSON.parse(JSON.stringify(obj));
+            GoogleTagManager.resetPush(newObjInstanceConfig);
         }
     }
 
@@ -75,7 +75,8 @@ export default class GoogleTagManager {
         if (this.initialized) {
             try { 
                 const gtmSnippet: HTMLScriptElement = window.document.querySelector(`#gtm-snippet`);
-                window.document.querySelector('html').removeChild(gtmSnippet);
+                const parentElement = gtmSnippet.parentNode;
+                parentElement.removeChild(gtmSnippet);
                 this.initialized = false;
             } catch (err) { 
                 console.error('Could not remove Google Tag Manager script');

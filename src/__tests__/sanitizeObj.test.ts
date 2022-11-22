@@ -1,4 +1,4 @@
-import sanitizeObj from './sanitizeObj'
+import sanitizeObj from '../util/sanitizeObj.js'
 
 describe('sanitizeObj()', () => { 
     it('should return an object where the string property values are sanitized', () => { 

@@ -1,4 +1,4 @@
-import sanitize from "./sanitize";
+import sanitize from "../util/sanitize";
 
 describe('sanitize()', () => { 
     it('should return a sanitized string', () => { 

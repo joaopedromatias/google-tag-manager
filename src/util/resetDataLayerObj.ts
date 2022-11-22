@@ -10,7 +10,7 @@ function resetObj (obj: dataLayerObj) {
     })
 }
 
-export default function exec (obj: dataLayerObj): boolean { 
+export default function exec (obj: dataLayerObj): boolean | void { 
     if (isObject(obj)) { 
         try { 
             resetObj(obj);
