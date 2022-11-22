@@ -25,6 +25,16 @@ var GoogleTagManager = /** @class */ (function () {
                 }
                 script.innerHTML = snippetInnerHTML;
                 window.document.head.appendChild(script);
+                var noScript = document.createElement('noscript');
+                noScript.id = "gtm-snippet-noscript";
+                var iframe = document.createElement('iframe');
+                iframe.src = "https://".concat(this.serverSideDomain || 'www.googletagmanager.com', "/ns.html?id=").concat(this.gtmId);
+                iframe.style.display = "none";
+                iframe.style.visibility = "hidden";
+                iframe.height = "0";
+                iframe.width = "0";
+                noScript.appendChild(iframe);
+                window.document.body.appendChild(noScript);
                 this.initialized = true;
             }
             else {

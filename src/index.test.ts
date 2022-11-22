@@ -27,8 +27,12 @@ describe('GoogleTagManager', () => {
             gtm.initialize();
 
             const gtmSnippet = document.head.querySelector('script#gtm-snippet')
+
+            const gtmSnippetNoScript = document.body.querySelector('#gtm-snippet-noscript') as HTMLElement;
+            const iframe = gtmSnippetNoScript.querySelector('iframe') as HTMLIFrameElement;
             
             expect(gtmSnippet).toBeDefined();
+            expect(iframe).toBeDefined();
         })
 
         it('should initialize the google tag manager with the provided id and with the server side domain (if it is configured)', () => { 
@@ -37,10 +41,15 @@ describe('GoogleTagManager', () => {
             gtm.initialize();
 
             const gtmSnippet = document.head.querySelector('script#gtm-snippet') as HTMLScriptElement;
+            
+            const gtmSnippetNoScript = document.body.querySelector('#gtm-snippet-noscript') as HTMLElement;
+            const iframe = gtmSnippetNoScript.querySelector('iframe') as HTMLIFrameElement;
 
             const gtmSnippetSrc = (gtmSnippet || {}).src
+            const iframeSrc = (iframe || {}).src;
             
             expect(gtmSnippetSrc).toBe('https://data.domain.com/gtm.js?id=GTM-1234567')
+            expect(iframeSrc).toBe('https://data.domain.com/ns.html?id=GTM-1234567')
         })
     
         it('should not initialize the google tag manager container if a gtmId is not provided', () => { 
@@ -49,8 +58,11 @@ describe('GoogleTagManager', () => {
             gtm.initialize();
             
             const gtmSnippet = document.head.querySelector('script#gtm-snippet');
+
+            const gtmSnippetNoScript = document.body.querySelector('#gtm-snippet-noscript') as HTMLElement;
             
-            expect(gtmSnippet).toBe(null);
+            expect(gtmSnippet).toBeNull();
+            expect(gtmSnippetNoScript).toBeNull();
         })
     })
 

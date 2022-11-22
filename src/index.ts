@@ -33,6 +33,18 @@ export default class GoogleTagManager {
                 }
                 script.innerHTML = snippetInnerHTML
                 window.document.head.appendChild(script);
+                
+                const noScript = document.createElement('noscript');
+                noScript.id = "gtm-snippet-noscript"
+                const iframe = document.createElement('iframe')
+                iframe.src = `https://${this.serverSideDomain || 'www.googletagmanager.com'}/ns.html?id=${this.gtmId}`;
+                iframe.style.display = "none"
+                iframe.style.visibility = "hidden";
+                iframe.height = "0"
+                iframe.width = "0"
+                noScript.appendChild(iframe);
+                window.document.body.appendChild(noScript);
+
                 this.initialized = true;
             } else { 
                 console.error('No Google Tag Manager ID was assigned');
