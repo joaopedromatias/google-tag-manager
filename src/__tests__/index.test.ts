@@ -54,7 +54,7 @@ describe('GoogleTagManager', () => {
         })
 
         it('should initialize the google tag manager container with defer instead of async if it is passed on configuration', () => { 
-            const gtm = new GoogleTagManager({gtmId: '1234567', defer: true})
+            const gtm = new GoogleTagManager({gtmId: 'GTM-1234567', defer: true})
             
             gtm.initialize()
 
