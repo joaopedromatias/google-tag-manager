@@ -22,30 +22,37 @@ export default class GoogleTagManager {
     initialize(): void {
         if (!this.initialized) {
             if (this.gtmId) {
-                const script: HTMLScriptElement = document.createElement('script');
-                let snippetInnerHTML: string = gtmCode.replace('GTM-ID', this.gtmId) 
-                if (this.serverSideDomain) { 
-                    const ssDomainTreated = this.serverSideDomain.replace(/http(|s):\/\/|\/$/g, '');
-                    snippetInnerHTML = snippetInnerHTML.replace('www.googletagmanager.com', ssDomainTreated)
+                const gtmAlreadyLoaded: HTMLScriptElement = window.document.querySelector(`#gtm-snippet`);
+                const hasGtmAlreadyLoaded = !!gtmAlreadyLoaded;
+                let isTheSameId = false;
+                if (hasGtmAlreadyLoaded) { 
+                    isTheSameId = gtmAlreadyLoaded.src.indexOf(`id=${this.gtmId}`) !== -1;
                 }
-                if (this.defer){ 
-                    snippetInnerHTML = snippetInnerHTML.replace('async', 'defer')
+                if (!isTheSameId) {
+                    const script: HTMLScriptElement = document.createElement('script');
+                    let snippetInnerHTML: string = gtmCode.replace('GTM-ID', this.gtmId);
+                    if (this.serverSideDomain) { 
+                        const ssDomainTreated = this.serverSideDomain.replace(/http(|s):\/\/|\/$/g, '');
+                        snippetInnerHTML = snippetInnerHTML.replace('www.googletagmanager.com', ssDomainTreated)
+                    }
+                    if (this.defer){ 
+                        snippetInnerHTML = snippetInnerHTML.replace('async', 'defer');
+                    }
+                    script.innerHTML = snippetInnerHTML;
+                    window.document.head.appendChild(script);
+                  
+                    const noScript = document.createElement('noscript');
+                    noScript.id = "gtm-snippet-noscript";
+                    const iframe = document.createElement('iframe');
+                    iframe.src = `https://${this.serverSideDomain || 'www.googletagmanager.com'}/ns.html?id=${this.gtmId}`;
+                    iframe.style.display = "none"
+                    iframe.style.visibility = "hidden";
+                    iframe.height = "0"
+                    iframe.width = "0"
+                    noScript.appendChild(iframe);
+                    window.document.body.appendChild(noScript);
+                    this.initialized = true;
                 }
-                script.innerHTML = snippetInnerHTML
-                window.document.head.appendChild(script);
-                
-                const noScript = document.createElement('noscript');
-                noScript.id = "gtm-snippet-noscript"
-                const iframe = document.createElement('iframe')
-                iframe.src = `https://${this.serverSideDomain || 'www.googletagmanager.com'}/ns.html?id=${this.gtmId}`;
-                iframe.style.display = "none"
-                iframe.style.visibility = "hidden";
-                iframe.height = "0"
-                iframe.width = "0"
-                noScript.appendChild(iframe);
-                window.document.body.appendChild(noScript);
-
-                this.initialized = true;
             } else { 
                 console.error('No Google Tag Manager ID was assigned');
             }

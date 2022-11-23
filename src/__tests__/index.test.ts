@@ -82,7 +82,7 @@ describe('GoogleTagManager', () => {
             expect(error).toBeCalledWith('No Google Tag Manager ID was assigned')
         })
 
-        it('should warn in the console if the google tag manager container have already been initialized', () => {
+        it('should warn in the console if the google tag manager container have already been initialized by the same instance', () => {
             const warn = jest.spyOn(console, 'warn').mockImplementation(() => true);
 
             const gtm = new GoogleTagManager({gtmId: 'GTM-1234567'});
@@ -92,6 +92,19 @@ describe('GoogleTagManager', () => {
             gtm.initialize();
             
             expect(warn).toBeCalledWith('Google Tag Manager was already loaded')
+        })
+
+        it('should warn in the console if the google tag manager container have already been initialized in another instance', () => {
+            const gtm1 = new GoogleTagManager({gtmId: 'GTM-1234567'});
+            const gtm2 = new GoogleTagManager({gtmId: 'GTM-1234567'});
+
+            gtm1.initialize();
+
+            gtm2.initialize();
+
+            const gtmSnippetsLength = window.document.querySelectorAll('#gtm-snippet').length;
+            
+            expect(gtmSnippetsLength).toBe(1)
         })
     })
 

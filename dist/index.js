@@ -14,28 +14,36 @@ var GoogleTagManager = /** @class */ (function () {
     GoogleTagManager.prototype.initialize = function () {
         if (!this.initialized) {
             if (this.gtmId) {
-                var script = document.createElement('script');
-                var snippetInnerHTML = gtmCode.replace('GTM-ID', this.gtmId);
-                if (this.serverSideDomain) {
-                    var ssDomainTreated = this.serverSideDomain.replace(/http(|s):\/\/|\/$/g, '');
-                    snippetInnerHTML = snippetInnerHTML.replace('www.googletagmanager.com', ssDomainTreated);
+                var gtmAlreadyLoaded = window.document.querySelector("#gtm-snippet");
+                var hasGtmAlreadyLoaded = !!gtmAlreadyLoaded;
+                var isTheSameId = false;
+                if (hasGtmAlreadyLoaded) {
+                    isTheSameId = gtmAlreadyLoaded.src.indexOf("id=".concat(this.gtmId)) !== -1;
                 }
-                if (this.defer) {
-                    snippetInnerHTML = snippetInnerHTML.replace('async', 'defer');
+                if (!isTheSameId) {
+                    var script = document.createElement('script');
+                    var snippetInnerHTML = gtmCode.replace('GTM-ID', this.gtmId);
+                    if (this.serverSideDomain) {
+                        var ssDomainTreated = this.serverSideDomain.replace(/http(|s):\/\/|\/$/g, '');
+                        snippetInnerHTML = snippetInnerHTML.replace('www.googletagmanager.com', ssDomainTreated);
+                    }
+                    if (this.defer) {
+                        snippetInnerHTML = snippetInnerHTML.replace('async', 'defer');
+                    }
+                    script.innerHTML = snippetInnerHTML;
+                    window.document.head.appendChild(script);
+                    var noScript = document.createElement('noscript');
+                    noScript.id = "gtm-snippet-noscript";
+                    var iframe = document.createElement('iframe');
+                    iframe.src = "https://".concat(this.serverSideDomain || 'www.googletagmanager.com', "/ns.html?id=").concat(this.gtmId);
+                    iframe.style.display = "none";
+                    iframe.style.visibility = "hidden";
+                    iframe.height = "0";
+                    iframe.width = "0";
+                    noScript.appendChild(iframe);
+                    window.document.body.appendChild(noScript);
+                    this.initialized = true;
                 }
-                script.innerHTML = snippetInnerHTML;
-                window.document.head.appendChild(script);
-                var noScript = document.createElement('noscript');
-                noScript.id = "gtm-snippet-noscript";
-                var iframe = document.createElement('iframe');
-                iframe.src = "https://".concat(this.serverSideDomain || 'www.googletagmanager.com', "/ns.html?id=").concat(this.gtmId);
-                iframe.style.display = "none";
-                iframe.style.visibility = "hidden";
-                iframe.height = "0";
-                iframe.width = "0";
-                noScript.appendChild(iframe);
-                window.document.body.appendChild(noScript);
-                this.initialized = true;
             }
             else {
                 console.error('No Google Tag Manager ID was assigned');
