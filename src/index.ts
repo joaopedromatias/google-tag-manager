@@ -11,7 +11,7 @@ export default class GoogleTagManager {
     private initialized = false
 
     constructor(initGtm: gtmConfig) { 
-        const { gtmId, serverSideDomain, resetDataLayerObjects, sanitizeDataLayerObjects, defer }: gtmConfig = initGtm;
+        const { gtmId, serverSideDomain, resetDataLayerObjects, sanitizeDataLayerObjects, defer } = initGtm;
         this.gtmId = typeof gtmId === "string" ? gtmId.trim() : undefined;
         this.serverSideDomain = typeof serverSideDomain === "string" ? serverSideDomain.trim() : '';
         this.resetDataLayer = typeof resetDataLayerObjects === "boolean" ? resetDataLayerObjects : false;
@@ -40,17 +40,6 @@ export default class GoogleTagManager {
                     }
                     script.innerHTML = snippetInnerHTML;
                     window.document.head.appendChild(script);
-                  
-                    const noScript = document.createElement('noscript');
-                    noScript.id = "gtm-snippet-noscript";
-                    const iframe = document.createElement('iframe');
-                    iframe.src = `https://${this.serverSideDomain || 'www.googletagmanager.com'}/ns.html?id=${this.gtmId}`;
-                    iframe.style.display = "none"
-                    iframe.style.visibility = "hidden";
-                    iframe.height = "0"
-                    iframe.width = "0"
-                    noScript.appendChild(iframe);
-                    window.document.body.appendChild(noScript);
                     this.initialized = true;
                 }
             } else { 
