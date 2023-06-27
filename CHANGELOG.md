@@ -15,3 +15,9 @@
 ### Nov 23, 2022
 
 -> Prevents that the same container ID is loaded twice, even on different instances.
+
+## 1.0.8
+
+### Jun 27, 2023
+
+-> Refactor type declarations and exclude the remove container method
