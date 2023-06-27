@@ -1,6 +1,6 @@
 {
   "name": "gtm-module",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Facilitates the usage of Google Tag Manager. Supports Google Tag Manager Server Side loading.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
