@@ -67,21 +67,6 @@ export default class GTM {
         }
     }
 
-    remove(): void { 
-        if (this.initialized) {
-            try { 
-                const gtmSnippet: HTMLScriptElement = window.document.querySelector(`#gtm-snippet`);
-                const parentElement = gtmSnippet.parentNode;
-                parentElement.removeChild(gtmSnippet);
-                this.initialized = false;
-            } catch (err) { 
-                console.error('Could not remove Google Tag Manager script');
-            }   
-        } else { 
-            console.warn('Google Tag Manager script is not initialized');
-        }
-    }
-
     private static resetPush(obj: dataLayerObj) { 
         const proceed = resetDataLayerObj(obj);
         if (proceed) {

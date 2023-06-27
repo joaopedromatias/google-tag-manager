@@ -8,7 +8,6 @@ export default class GTM {
     constructor(initGtm: gtmConfig);
     initialize(): void;
     dataLayerPush(obj: dataLayerObj, resetPush?: boolean): void;
-    remove(): void;
     private static resetPush;
 }
 declare global {

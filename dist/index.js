@@ -60,22 +60,6 @@ var GTM = /** @class */ (function () {
             GTM.resetPush(newObjInstanceConfig);
         }
     };
-    GTM.prototype.remove = function () {
-        if (this.initialized) {
-            try {
-                var gtmSnippet = window.document.querySelector("#gtm-snippet");
-                var parentElement = gtmSnippet.parentNode;
-                parentElement.removeChild(gtmSnippet);
-                this.initialized = false;
-            }
-            catch (err) {
-                console.error('Could not remove Google Tag Manager script');
-            }
-        }
-        else {
-            console.warn('Google Tag Manager script is not initialized');
-        }
-    };
     GTM.resetPush = function (obj) {
         var proceed = resetDataLayerObj(obj);
         if (proceed) {

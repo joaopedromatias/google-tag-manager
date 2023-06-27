@@ -206,44 +206,4 @@ describe('GoogleTagManager', () => {
             expect(window.dataLayer[1].ecommerce.add.infoHere).toBeNull()
         })
     })
-
-    describe('remove()', () => { 
-
-        beforeEach(() => {
-            window.document.write(`<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Document</title></head><body></body></html>`)
-        });
-        
-        afterEach(() => {
-            window.document.write('')
-            jest.restoreAllMocks();
-        });
-
-        it('should remove the Google Tag Manager Script', () => { 
-            
-            const gtm = new GoogleTagManager({gtmId: 'GTM-0000000'});
-
-            gtm.initialize();
-
-            const gtmSnippet = window.document.querySelector('#gtm-snippet');
-
-            expect(gtmSnippet).toBeDefined();
-            
-            gtm.remove();
-            
-            const gtmSnippetAfter = window.document.querySelector('#gtm-snippet');
-            
-            expect(gtmSnippetAfter).toBeNull();
-        })
-
-        it('should warn in the console if the gtm is not initialized', () => { 
-
-            const warn = jest.spyOn(console, 'warn').mockImplementation(() => true)
-
-            const gtm = new GoogleTagManager({gtmId: 'GTM-0000000'});
-
-            gtm.remove()
-            
-            expect(warn).toBeCalledWith('Google Tag Manager script is not initialized')
-        })
-    })
 })
