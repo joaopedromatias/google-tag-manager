@@ -47,9 +47,3 @@ gtm.dataLayerPush(dataLayerObject, true) // push the object to the dataLayer and
 | ------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
 | initialize    | -                 | Load the Google Tag Manager Client Side container                                                                                                    |
 | dataLayerPush | object, resetPush | Pushes the object to the dataLayer. If the second parameter is passed, it overwrites the initial `resetDataLayerObjects` configuration for this push |
-
-## Colaborating
-
-In order to collaborate, please link an issue with the pull request.
-
-All the tests must pass in order to merge on **`master`**.
