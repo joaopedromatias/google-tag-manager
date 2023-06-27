@@ -1,4 +1,4 @@
-import isObject from "./isObject.js";
+import isObject from './isObject.js';
 function resetObj(obj) {
     Object.keys(obj).forEach(function (key) {
         if (isObject(obj[key])) {

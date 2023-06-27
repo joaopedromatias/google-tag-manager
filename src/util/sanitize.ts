@@ -1,11 +1,11 @@
-export default (text: string): string => { 
-  const allSpaces = /\s/g;
-  const allLineBreaks = /\n/g;
+export default (text: string): string => {
+  const allSpaces = /\s/g
+  const allLineBreaks = /\n/g
   return text
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
     .trim()
-    .replace(allSpaces, "-")
-    .replace(allLineBreaks, "-")
-    .toLowerCase();
+    .replace(allSpaces, '-')
+    .replace(allLineBreaks, '-')
+    .toLowerCase()
 }

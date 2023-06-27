@@ -11,7 +11,8 @@
     "test:dev": "jest --coverage --watch --env=jsdom",
     "lint": "eslint",
     "release": "release-it",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "format": "prettier --write ."
   },
   "repository": {
     "type": "git",
@@ -43,9 +44,13 @@
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@typescript-eslint/parser": "^5.43.0",
     "eslint": "^8.27.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-jest": "^27.2.2",
+    "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.2",
     "jest": "^29.3.1",
     "jest-environment-jsdom": "^29.3.1",
+    "prettier": "^2.8.8",
     "release-it": "^15.5.0"
   }
 }

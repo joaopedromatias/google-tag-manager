@@ -9,8 +9,8 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-import sanitize from "./sanitize.js";
-import isObject from "./isObject.js";
+import sanitize from './sanitize.js';
+import isObject from './isObject.js';
 function sanitizeObj(obj) {
     Object.keys(obj).forEach(function (key) {
         if (typeof obj[key] === 'string') {
