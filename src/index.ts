@@ -2,7 +2,7 @@ import sanitizeObj from './util/sanitizeObj.js'
 import resetDataLayerObj from './util/resetDataLayerObj.js'
 import gtmCode from './util/gtmCode.js'
 
-export default class GoogleTagManager { 
+export default class GTM { 
     private gtmId: string
     private serverSideDomain: string
     private resetDataLayer: boolean
@@ -59,11 +59,11 @@ export default class GoogleTagManager {
         if (typeof resetPush === 'boolean') { 
             if (resetPush) { 
                 const newObjMethodConfig = JSON.parse(JSON.stringify(obj));
-                GoogleTagManager.resetPush(newObjMethodConfig);
+                GTM.resetPush(newObjMethodConfig);
             }
         } else if (this.resetDataLayer) {
             const newObjInstanceConfig = JSON.parse(JSON.stringify(obj));
-            GoogleTagManager.resetPush(newObjInstanceConfig);
+            GTM.resetPush(newObjInstanceConfig);
         }
     }
 

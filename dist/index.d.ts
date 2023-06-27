@@ -1,4 +1,4 @@
-export default class GoogleTagManager {
+export default class GTM {
     private gtmId;
     private serverSideDomain;
     private resetDataLayer;
