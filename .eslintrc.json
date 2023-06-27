@@ -16,5 +16,7 @@
     "sourceType": "module"
   },
   "plugins": ["@typescript-eslint", "jest", "prettier"],
-  "rules": {}
+  "rules": {
+    "prettier/prettier": "error"
+  }
 }
