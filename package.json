@@ -10,7 +10,7 @@
     "test": "jest --coverage --env=jsdom",
     "test:dev": "jest --coverage --watch --env=jsdom",
     "lint": "eslint",
-    "release": "release-it",
+    "release": "release-it --no-git.requireUpstream",
     "prepare": "husky install",
     "format": "prettier --write ."
   },
