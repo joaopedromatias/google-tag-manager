@@ -76,19 +76,11 @@ export default class GTM {
 }
 
 declare global { 
+    type dataLayerObj = {
+        [key: string]: string | number | boolean | dataLayerObj
+    }
+    
     interface Window {
         dataLayer: dataLayerObj[]
     }
-}
-
-interface dataLayerObj {
-    [parameter: string]: unknown
-}
-
-interface gtmConfig {
-    gtmId: string
-    serverSideDomain?: string
-    resetDataLayerObjects?: boolean
-    sanitizeDataLayerObjects?: boolean
-    defer?: boolean
 }

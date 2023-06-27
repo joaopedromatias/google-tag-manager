@@ -1,15 +1,5 @@
 import GoogleTagManager from "..";
 
-declare global { 
-    interface Window {
-        dataLayer: dataLayerObj[]
-    }
-}
-
-interface dataLayerObj {
-    [parameter: string]: unknown
-}
-
 describe('GoogleTagManager', () => { 
     describe('initialize()', () => { 
 
@@ -139,15 +129,10 @@ describe('GoogleTagManager', () => {
 
             expect(window.dataLayer[0].event).toBe('click')
             expect(window.dataLayer[0].element).toBe('cta-bottom')
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            //@ts-ignore
-            expect(window.dataLayer[0].ecommerce.add.infoHere).toBe('the-info');
-
+            expect(((window.dataLayer[0].ecommerce as dataLayerObj).add as dataLayerObj).infoHere).toBe('the-info');
             expect(window.dataLayer[1].event).toBeNull()
             expect(window.dataLayer[1].element).toBeNull()
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            //@ts-ignore
-            expect(window.dataLayer[1].ecommerce.add.infoHere).toBeNull();
+            expect(((window.dataLayer[1].ecommerce as dataLayerObj).add as dataLayerObj).infoHere).toBeNull();
         })
 
         it('should push the sanitized object to the datalayer if it is passed in the configuration and then reset the datalayer object if it is passed on the method' , () => { 
@@ -167,15 +152,11 @@ describe('GoogleTagManager', () => {
 
             expect(window.dataLayer[0].event).toBe('click')
             expect(window.dataLayer[0].element).toBe('cta-bottom')
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            //@ts-ignore
-            expect(window.dataLayer[0].ecommerce.add.infoHere).toBe('the-info')
+            expect(((window.dataLayer[0].ecommerce as dataLayerObj).add as dataLayerObj).infoHere).toBe('the-info')
 
             expect(window.dataLayer[1].event).toBeNull()
             expect(window.dataLayer[1].element).toBeNull()
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            //@ts-ignore
-            expect(window.dataLayer[1].ecommerce.add.infoHere).toBeNull()
+            expect(((window.dataLayer[1].ecommerce as dataLayerObj).add as dataLayerObj).infoHere).toBeNull()
         })
 
         it('should push the object to the dataLayer and reset it after if it is passed on the configuration' , () => { 
@@ -195,15 +176,11 @@ describe('GoogleTagManager', () => {
 
             expect(window.dataLayer[0].event).toBe('click')
             expect(window.dataLayer[0].element).toBe('cta-bottom')
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            //@ts-ignore
-            expect(window.dataLayer[0].ecommerce.add.infoHere).toBe('the-info')
+            expect(((window.dataLayer[0].ecommerce as dataLayerObj).add as dataLayerObj).infoHere).toBe('the-info')
 
             expect(window.dataLayer[1].event).toBeNull()
             expect(window.dataLayer[1].element).toBeNull()
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            //@ts-ignore
-            expect(window.dataLayer[1].ecommerce.add.infoHere).toBeNull()
+            expect(((window.dataLayer[1].ecommerce as dataLayerObj).add as dataLayerObj).infoHere).toBeNull()
         })
     })
 })
