@@ -1,4 +1,4 @@
-import * as file from '../util/resetDataLayerObj.js'
+import * as file from '../util/resetDataLayerObj'
 
 describe('resetDataLayer()', () => {
   it('should reset the dataLayer object', () => {
