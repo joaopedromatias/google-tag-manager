@@ -21,3 +21,9 @@
 ### Jun 27, 2023
 
 -> Refactor type declarations and exclude the remove container method
+
+## 1.0.9
+
+### Jun 27, 2023
+
+-> Add jsdocs

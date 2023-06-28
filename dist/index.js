@@ -2,23 +2,30 @@ import sanitizeObj from './util/sanitizeObj.js';
 import resetDataLayerObj from './util/resetDataLayerObj.js';
 import gtmCode from './util/gtmCode.js';
 var GTM = /** @class */ (function () {
+    /**
+     * Create a Google Tag Manager instance.
+     * @param {gtmConfig} initGtm - Google Tag Manager configuration.
+     */
     function GTM(initGtm) {
         this.initialized = false;
         var gtmId = initGtm.gtmId, serverSideDomain = initGtm.serverSideDomain, resetDataLayerObjects = initGtm.resetDataLayerObjects, sanitizeDataLayerObjects = initGtm.sanitizeDataLayerObjects, defer = initGtm.defer;
-        this.gtmId = typeof gtmId === 'string' ? gtmId.trim() : undefined;
+        this.gtmId = typeof gtmId === 'string' ? gtmId.trim() : '';
         this.serverSideDomain = typeof serverSideDomain === 'string' ? serverSideDomain.trim() : '';
         this.resetDataLayer = typeof resetDataLayerObjects === 'boolean' ? resetDataLayerObjects : false;
         this.sanitizeDataLayer =
             typeof sanitizeDataLayerObjects === 'boolean' ? sanitizeDataLayerObjects : false;
         this.defer = typeof defer === 'boolean' ? defer : false;
     }
+    /**
+     * Load the Google Tag Manager Client Side container.
+     * @returns {void}
+     */
     GTM.prototype.initialize = function () {
         if (!this.initialized) {
             if (this.gtmId) {
                 var gtmAlreadyLoaded = window.document.querySelector("#gtm-snippet");
-                var hasGtmAlreadyLoaded = !!gtmAlreadyLoaded;
                 var isTheSameId = false;
-                if (hasGtmAlreadyLoaded) {
+                if (gtmAlreadyLoaded) {
                     isTheSameId = gtmAlreadyLoaded.src.indexOf("id=".concat(this.gtmId)) !== -1;
                 }
                 if (!isTheSameId) {
@@ -44,6 +51,12 @@ var GTM = /** @class */ (function () {
             console.warn('Google Tag Manager was already loaded');
         }
     };
+    /**
+     * Pushes the object to the dataLayer. If the second parameter is passed, it overwrites the instance configuration `resetDataLayerObjects` property.
+     * @param {dataLayerObj} obj - Object to be pushed.
+     * @param {boolean} [resetPush] - Reset the push by applying null to all of its keys and nested keys.
+     * @returns {void}
+     */
     GTM.prototype.dataLayerPush = function (obj, resetPush) {
         window.dataLayer = window.dataLayer || [];
         if (this.sanitizeDataLayer) {
